@@ -46,6 +46,7 @@
               size="small"
               pTooltip="Editar"
               tooltipPosition="top"
+              [disabled]="isClosed(tarea)"
               (onClick)="edit(tarea)"
             />
             <p-button
@@ -55,6 +56,7 @@
               size="small"
               pTooltip="Cerrar"
               tooltipPosition="top"
+              [disabled]="isClosed(tarea)"
               (onClick)="close(tarea)"
             />
             <p-button
