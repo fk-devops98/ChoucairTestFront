@@ -1,0 +1,46 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="/tareas">
+    <img src="assets/layout/images/logo.jpg" alt="logo" />
+    <span>Test</span>
+  </a>
+
+  <button
+    #menubutton
+    class="p-link layout-menu-button layout-topbar-button"
+    (click)="layoutService.onMenuToggle()"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+
+  <button
+    #topbarmenubutton
+    class="p-link layout-topbar-menu-button layout-topbar-button"
+    (click)="layoutService.showProfileSidebar()"
+  >
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
+
+  <div
+    #topbarmenu
+    class="layout-topbar-menu"
+    [ngClass]="{
+      'layout-topbar-menu-mobile-active':
+        layoutService.state.profileSidebarVisible
+    }"
+  >
+    <button class="p-link layout-topbar-button" (click)="op.toggle($event)">
+      <i class="pi pi-user"></i>
+      <span>Profile</span>
+    </button>
+  </div>
+</div>
+
+<p-overlayPanel #op>
+  <p-button
+    label="Cerrar Sesión"
+    [text]="true"
+    [raised]="true"
+    severity="danger"
+    (onClick)="logOut()"
+  />
+</p-overlayPanel>

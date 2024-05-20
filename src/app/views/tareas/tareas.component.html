@@ -1,0 +1,91 @@
+<div id="c-tareas">
+  <p-card>
+    <p-table
+      [value]="tareas"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-sm"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <section>
+            <h3 class="font-bold">Listado de Tareas</h3>
+          </section>
+
+          <p-button
+            class="flex align-items-center justify-content-center"
+            icon="pi pi-calendar-plus"
+            size="small"
+            label="Agregar"
+            (onClick)="create()"
+          />
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr class="table-list">
+          <th class="text-center">Título</th>
+          <th class="text-center">Descripción</th>
+          <th class="text-center">Fecha de Vecimiento</th>
+          <th class="text-center">Usuario Creación</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tarea>
+        <tr class="table-list">
+          <td>{{ tarea.titulo }}</td>
+          <td>{{ tarea.descripcion }}</td>
+          <td class="text-center">{{ tarea.fechaVencimiento | date : "dd/MM/yyyy" }}</td>
+          <td class="text-center">{{ tarea.usuarioNombre }}</td>
+          <td class="text-center">{{ tarea.estadoTareaNombre }}</td>
+          <td class="flex justify-content-center flex-wrap gap-2">
+            <p-button
+              class="flex align-items-center justify-content-center"
+              icon="pi pi-pencil"
+              severity="warning"
+              size="small"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              (onClick)="edit(tarea)"
+            />
+            <p-button
+              class="flex align-items-center justify-content-center"
+              icon="pi pi-check-square"
+              severity="success"
+              size="small"
+              pTooltip="Cerrar"
+              tooltipPosition="top"
+              (onClick)="close(tarea)"
+            />
+            <p-button
+              class="flex align-items-center justify-content-center"
+              icon="pi pi-trash"
+              severity="danger"
+              size="small"
+              pTooltip="Eliminar"
+              tooltipPosition="top"
+              [disabled]="isClosed(tarea)"
+              (onClick)="delete(tarea)"
+            />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              En total hay {{tareas ? tareas.length : 0 }} tareas.
+          </div>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div
+        class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border"
+      >
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</div>
